@@ -14,7 +14,6 @@ import {
   NavItems,
 } from "./navbar";
 import { ThemeSwitch } from "./theme-switch";
-import { LogIn, UserPlus } from "lucide-react";
 
 export function AppNavbar() {
   const navItems = [
@@ -26,7 +25,7 @@ export function AppNavbar() {
       name: "Pricing",
       link: "#pricing",
     },
-    { name: "Contact", link: "#contact" },
+    { name: "Newsletter", link: "#contact" },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,23 +38,23 @@ export function AppNavbar() {
         <NavItems items={navItems} />
         <div className="z-10 flex items-center gap-2">
           <ThemeSwitch variant="link" className="pl-4" />
-          <Button
-            asChild
-            className="text-foreground hover:bg-card bg-card h-8 px-3 text-sm font-medium"
-          >
-            <Link href="/sign-in" className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
+            <Link
+              href="/sign-in"
+              className="text-foreground hover:bg-card bg-card flex h-8 items-center rounded-2xl px-3 text-sm font-medium"
+            >
               Login
             </Link>
-          </Button>
 
-          <Button
-            asChild
-            className="text-primary-foreground h-8 rounded-2xl px-3 text-sm font-medium"
-          >
-            <Link href="/sign-up" className="flex items-center gap-1">
-              Sign Up
-            </Link>
-          </Button>
+            <Button
+              asChild
+              className="text-primary-foreground h-8 rounded-2xl px-3 text-sm font-medium"
+            >
+              <Link href="/sign-up" className="flex items-center gap-1">
+                Sign Up
+              </Link>
+            </Button>
+          </div>
         </div>
       </NavBody>
 
@@ -84,7 +83,7 @@ export function AppNavbar() {
             </a>
           ))}
           <div className="flex w-full flex-col gap-3">
-            <ThemeSwitch variant="ghost" />
+            <ThemeSwitch variant="ghost" className="pr-4" />
             <NavbarButton href="/sign-in" variant="primary" className="w-full">
               Login
             </NavbarButton>

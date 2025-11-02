@@ -18,7 +18,10 @@ function EmailSignups() {
   const [success, setSuccess] = useState("");
 
   const schema = z.object({
-    email: z.string().email(),
+    email: z
+      .string()
+      .nonempty({ message: "Input is Empty." })
+      .email({ message: "Invalid Email. Please try Again" }),
   });
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,7 +35,9 @@ function EmailSignups() {
 
     const result = schema.safeParse({ email });
     if (!result.success) {
-      setError("Invalid email. Please try again.");
+      const message =
+        result.error.issues?.[0]?.message || "Invalid Email. Please try again.";
+      setError(message);
       setLoading(false);
       return;
     }
@@ -50,7 +55,7 @@ function EmailSignups() {
 
   return (
     <section id="contact" className="flex justify-center px-4 py-16">
-      <Card className="border-border/40 w-full max-w-md rounded-2xl border shadow-md">
+      <Card className="border-border/40 w-full max-w-md rounded-2xl border-0 bg-transparent shadow-none">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-2xl font-semibold">
             Sign Up for Our Newsletter
@@ -63,6 +68,7 @@ function EmailSignups() {
           <form
             onSubmit={handleSignup}
             className="flex flex-col items-center gap-3 sm:flex-row"
+            noValidate
           >
             <Input
               name="email"
@@ -70,16 +76,17 @@ function EmailSignups() {
               type="email"
               className="flex-1"
               required
+              onClick={() => setError("")}
             />
             <Button type="submit" disabled={isLoading}>
               {isLoading ? "Subscribing..." : "Subscribe"}
             </Button>
           </form>
           {error && (
-            <p className="text-destructive mt-3 text-center text-sm">{error}</p>
+            <p className="text-destructive pt-3 text-center text-sm">{error}</p>
           )}
           {success && (
-            <p className="mt-3 text-center text-sm text-green-500">{success}</p>
+            <p className="pt-3 text-center text-sm text-green-500">{success}</p>
           )}
         </CardContent>
       </Card>

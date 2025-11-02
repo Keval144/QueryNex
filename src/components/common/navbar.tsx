@@ -9,6 +9,7 @@ import {
 import React, { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import QueryNex from "./querynex";
+import Link from "next/link";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -102,7 +103,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "800px",
       }}
       className={cn(
-        "bg-card dark:bg-card relative z-60 mx-auto hidden w-full max-w-6xl flex-row items-center justify-between self-start rounded-full border px-4 py-2 lg:flex dark:border-0",
+        "bg-card dark:bg-card relative z-60 mx-auto hidden w-full max-w-6xl flex-row items-center justify-between self-start rounded-full border px-4 py-2 lg:flex dark:border",
         visible && "bg-card dark:bg-card",
         className,
       )}
@@ -231,12 +232,12 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="#"
-      className="text-md relative z-20 mr-4 flex items-center space-x-2 px-2 py-1"
+    <Link
+      href="/"
+      className="text-md relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 font-semibold"
     >
       <QueryNex />
-    </a>
+    </Link>
   );
 };
 
