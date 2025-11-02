@@ -3,7 +3,6 @@ import {
   boolean,
   index,
   integer,
-  pgEnum,
   pgTable,
   text,
   timestamp,
@@ -77,11 +76,6 @@ export const verification = pgTable("verification", {
 });
 
 // ---------- CHAT ----------
-export const dbTypeEnum = pgEnum("database_type", [
-  "mysql",
-  "postgres",
-  "mongodb",
-]);
 
 export const chat = pgTable(
   "chat",
@@ -91,10 +85,10 @@ export const chat = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     title: text("title").default("New Chat"),
-    dataString: text("data_string"),
-    database: dbTypeEnum("database"),
+    dataString: text("data_string").notNull(),
+    database: text("database").notNull(),
     safemode: boolean().default(false),
-    tokenUsed: integer(),
+    tokenUsed: integer().default(0),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")
       .defaultNow()
@@ -124,6 +118,22 @@ export const message = pgTable(
   }),
 );
 
+export const newsletter = pgTable(
+  "newsletter",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    email: text("email").notNull().unique(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (newsletter) => ({
+    idxEmail: index("idx_newsletter_email").on(newsletter.email),
+  }),
+);
+
 // ---------- RELATIONS ----------
 export const chatRelations = relations(chat, ({ many, one }) => ({
   user: one(user, { fields: [chat.userId], references: [user.id] }),
@@ -142,4 +152,5 @@ export const schema = {
   verification,
   chat,
   message,
+  newsletter,
 };

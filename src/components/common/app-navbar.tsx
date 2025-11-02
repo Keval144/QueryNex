@@ -14,6 +14,7 @@ import {
   NavItems,
 } from "./navbar";
 import { ThemeSwitch } from "./theme-switch";
+import { LogIn, UserPlus } from "lucide-react";
 
 export function AppNavbar() {
   const navItems = [
@@ -25,10 +26,7 @@ export function AppNavbar() {
       name: "Pricing",
       link: "#pricing",
     },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
+    { name: "Contact", link: "#contact" },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -39,9 +37,25 @@ export function AppNavbar() {
       <NavBody>
         <NavbarLogo />
         <NavItems items={navItems} />
-        <div className="z-10 flex items-center gap-4">
-          <Link href={"/sign-in"}>Login </Link>
-          <Link href={"/sign-up"}>Sign up</Link>
+        <div className="z-10 flex items-center gap-2">
+          <ThemeSwitch variant="link" className="pl-4" />
+          <Button
+            asChild
+            className="text-foreground hover:bg-card bg-card h-8 px-3 text-sm font-medium"
+          >
+            <Link href="/sign-in" className="flex items-center gap-1">
+              Login
+            </Link>
+          </Button>
+
+          <Button
+            asChild
+            className="text-primary-foreground h-8 rounded-2xl px-3 text-sm font-medium"
+          >
+            <Link href="/sign-up" className="flex items-center gap-1">
+              Sign Up
+            </Link>
+          </Button>
         </div>
       </NavBody>
 
@@ -69,14 +83,14 @@ export function AppNavbar() {
               <span className="block">{item.name}</span>
             </a>
           ))}
-          <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full flex-col gap-3">
+            <ThemeSwitch variant="ghost" />
             <NavbarButton href="/sign-in" variant="primary" className="w-full">
               Login
             </NavbarButton>
             <NavbarButton href="sign-up" variant="primary" className="w-full">
               Sign up
             </NavbarButton>
-            <ThemeSwitch />
           </div>
         </MobileNavMenu>
       </MobileNav>

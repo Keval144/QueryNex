@@ -7,9 +7,21 @@ import { Button } from "@/components/shadcn-ui/button";
 
 interface ThemeSwitchProps {
   className?: string;
+  variant?:
+    | "outline"
+    | "link"
+    | "default"
+    | "destructive"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
 }
 
-export function ThemeSwitch({ className }: ThemeSwitchProps) {
+export function ThemeSwitch({
+  className,
+  variant = "outline",
+}: ThemeSwitchProps) {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
@@ -18,10 +30,10 @@ export function ThemeSwitch({ className }: ThemeSwitchProps) {
 
   return (
     <Button
-      variant="outline"
+      variant={variant}
       size="icon"
       onClick={toggleTheme}
-      className={`${className}`}
+      className={`cursor-pointer ${className}`}
     >
       <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
       <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
