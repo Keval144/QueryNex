@@ -8,7 +8,7 @@ import {
   EmptyTitle,
 } from "../shadcn-ui/empty";
 import { Button } from "../shadcn-ui/button";
-import { ArrowUpRightIcon } from "lucide-react";
+import CreateChat from "./create-chat";
 
 function EmptyChat() {
   return (
@@ -25,7 +25,7 @@ function EmptyChat() {
       </EmptyHeader>
       <EmptyContent>
         <div className="flex gap-2">
-          <Button>Create Project</Button>
+          <CreateChat trigger={<Button>Create Project</Button>}></CreateChat>
         </div>
       </EmptyContent>
     </Empty>
