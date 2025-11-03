@@ -54,7 +54,10 @@ function EmailSignups() {
   };
 
   return (
-    <section id="contact" className="flex justify-center px-4 py-16">
+    <section
+      id="contact"
+      className="animate-slide-up-fade fill-mode-[both] flex justify-center px-4 py-16"
+    >
       <Card className="border-border/40 w-full max-w-md rounded-2xl border-0 bg-transparent shadow-none">
         <CardHeader className="space-y-2 text-center">
           <CardTitle className="text-2xl font-semibold">

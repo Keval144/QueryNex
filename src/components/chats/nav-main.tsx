@@ -1,12 +1,11 @@
-"use client"
+"use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
+import { ChevronRight, type LucideIcon } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/shadcn-ui/collapsible"
+} from "@/components/shadcn-ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,25 +15,31 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/shadcn-ui/sidebar"
+} from "@/components/shadcn-ui/sidebar";
+import { LogoQuery } from "../../../public/Logo/logo";
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
-    items?: {
-      title: string
-      url: string
-    }[]
-  }[]
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
+    items?: { title: string; url: string }[];
+  }[];
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <div className="ml-2 flex items-center ">
+        <LogoQuery className="h-6 w-6 text-[#1d9bf0]" />
+      </div>
+
+      {/* ✅ Main navigation */}
+      <SidebarGroupLabel className="text-muted-foreground/70 mt-3 text-xs font-semibold uppercase">
+        Platform
+      </SidebarGroupLabel>
+
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -46,11 +51,14 @@ export function NavMain({
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
-                  {item.icon && <item.icon />}
-                  <span>{item.title}</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  {item.icon && (
+                    <item.icon className="text-muted-foreground h-4 w-4" />
+                  )}
+                  <span className="ml-2">{item.title}</span>
+                  <ChevronRight className="text-muted-foreground ml-auto h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
+
               <CollapsibleContent>
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
@@ -69,5 +77,5 @@ export function NavMain({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

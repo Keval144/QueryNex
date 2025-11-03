@@ -2,7 +2,10 @@ import Image from "next/image";
 
 function BentoFeatures() {
   return (
-    <section className="min-h-screen py-8 md:py-16 lg:py-20" id="features">
+    <section
+      className="animate-slide-up-fade fill-mode-[both] min-h-screen py-8 md:py-16 lg:py-20"
+      id="features"
+    >
       <div className="text-center text-4xl md:mb-12 md:text-5xl lg:mb-16 lg:text-6xl">
         Features
       </div>

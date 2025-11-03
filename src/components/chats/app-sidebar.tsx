@@ -18,10 +18,8 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
   SidebarRail,
 } from "@/components/shadcn-ui/sidebar";
-import { ThemeSwitch } from "../common/theme-switch";
 
 const data = {
   navMain: [
@@ -83,8 +81,7 @@ export function AppSidebar({
   user: { name: string; email: string; avatar: string };
 }) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader></SidebarHeader>
+    <Sidebar collapsible="icon" {...props} className="group/sidebar">
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
