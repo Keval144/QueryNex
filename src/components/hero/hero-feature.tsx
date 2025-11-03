@@ -54,13 +54,10 @@ function BentoFeatures() {
           </div>
 
           {/* Device Image 2 */}
-          <div
+          <img
             className="min-h-[200px] rounded-3xl bg-cover bg-center bg-no-repeat shadow-md"
-            style={{
-              backgroundImage:
-                "url('https://emilandersson.com/storage/works/thumbnails/01JPXM5JG84REHYA3GQYGA3SSM.webp')",
-            }}
-          ></div>
+            src="/assets/mockup.jpg"
+          />
 
           {/* Fast and Reliable */}
           <div className="bg-card flex flex-col justify-start rounded-3xl p-6 shadow-md">
@@ -119,13 +116,10 @@ function BentoFeatures() {
             </p>
           </div>
 
-          <div
+          <img
             className="min-h-[250px] rounded-3xl bg-cover bg-center bg-no-repeat shadow-md"
-            style={{
-              backgroundImage:
-                "url('https://emilandersson.com/storage/works/thumbnails/01JPXM5JG84REHYA3GQYGA3SSM.webp')",
-            }}
-          ></div>
+            src="/assets/mockup.jpg"
+          />
 
           {/* Row 4 */}
           <div className="bg-card flex flex-col justify-start rounded-3xl p-8 shadow-md md:col-span-2">
@@ -186,13 +180,10 @@ function BentoFeatures() {
           </div>
 
           {/* Device 2 */}
-          <div
+          <img
             className="rounded-[2.5rem] bg-cover bg-center bg-no-repeat shadow-md"
-            style={{
-              backgroundImage:
-                "url('https://emilandersson.com/storage/works/thumbnails/01JPXM5JG84REHYA3GQYGA3SSM.webp')",
-            }}
-          ></div>
+            src="/assets/mockup.jpg"
+          />
 
           {/* Fast and Reliable */}
           <div className="bg-card col-[2/4] row-[3/4] flex flex-col justify-start rounded-[2.5rem] p-8 shadow-md">
