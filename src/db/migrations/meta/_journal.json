@@ -8,6 +8,20 @@
       "when": 1762060867960,
       "tag": "0000_quiet_stepford_cuckoos",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1762580066815,
+      "tag": "0001_omniscient_tenebrous",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762583965961,
+      "tag": "0002_optimal_wendell_rand",
+      "breakpoints": true
     }
   ]
 }

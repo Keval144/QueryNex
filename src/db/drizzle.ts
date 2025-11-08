@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 
-
 dotenv.config({ path: ".env" });
 
 const connectionString = process.env.DATABASE_URL;

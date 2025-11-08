@@ -15,7 +15,6 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 async function ChatLayout({ children }: { children: React.ReactNode }) {
-
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
 
@@ -58,7 +57,11 @@ async function ChatLayout({ children }: { children: React.ReactNode }) {
               </Button>
             </div>
           </header>
-          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+          <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            <div className="border-t">
+              <div className="p-5">{children}</div>
+            </div>
+          </div>
         </SidebarInset>
       </SidebarWrapperClient>
     </>

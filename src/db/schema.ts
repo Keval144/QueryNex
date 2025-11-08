@@ -110,10 +110,13 @@ export const message = pgTable(
       .references(() => chat.id, { onDelete: "cascade" }),
     content: text("content").notNull(),
     sqlResult: text("sql_result"),
+    excelData: text("excel_data"),
+    senderId: text("sender_id").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (message) => ({
     idxChat: index("idx_message_chat_id").on(message.chatId),
+    idxSender: index("idx_message_sender_id").on(message.senderId),
     idxCreatedAt: index("idx_message_created_at").on(message.createdAt),
   }),
 );

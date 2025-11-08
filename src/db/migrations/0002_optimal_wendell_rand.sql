@@ -1,0 +1,1 @@
+ALTER TABLE "message" ADD COLUMN "excel_data" text;
