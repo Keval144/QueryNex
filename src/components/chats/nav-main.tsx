@@ -1,6 +1,11 @@
 "use client";
 
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import {
+  ChevronRight,
+  MessageCircle,
+  MessageCirclePlus,
+  type LucideIcon,
+} from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -17,6 +22,9 @@ import {
   SidebarMenuSubItem,
 } from "@/components/shadcn-ui/sidebar";
 import { LogoQuery } from "../../../public/Logo/logo";
+import Link from "next/link";
+import CreateChat from "./create-chat";
+import { Button } from "../shadcn-ui/button";
 
 export function NavMain({
   items,
@@ -31,15 +39,46 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <div className="ml-2 flex items-center ">
+      {/* ✅ Logo */}
+      <div className="ml-2 flex items-center">
         <LogoQuery className="h-6 w-6 text-[#1d9bf0]" />
       </div>
 
-      {/* ✅ Main navigation */}
+      {/* ✅ Section Label */}
       <SidebarGroupLabel className="text-muted-foreground/70 mt-3 text-xs font-semibold uppercase">
-        Platform
+        Chats
       </SidebarGroupLabel>
 
+      {/* ✅ Main Chat Link */}
+      <SidebarMenu>
+        {/* 🔗 All Chats link */}
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <Link href="/chats" className="flex items-center gap-2">
+              <MessageCircle className="text-muted-foreground h-4 w-4" />
+              <span>All Chats</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <div className="flex cursor-pointer items-center gap-2">
+              <CreateChat
+                trigger={
+                  <div className="flex items-center gap-2">
+                    <MessageCirclePlus className="text-muted-foreground h-4 w-4" />
+                  </div>
+                }
+              />
+              <span>Create Chat</span>
+            </div>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+
+      {/* ✅ Dynamic Collapsible List */}
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -64,9 +103,9 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <Link href={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

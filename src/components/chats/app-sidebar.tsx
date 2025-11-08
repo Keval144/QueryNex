@@ -1,78 +1,19 @@
 "use client";
 
 import * as React from "react";
-import {
-  BookOpen,
-  Bot,
-  Frame,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react";
-
+import { SquareTerminal } from "lucide-react";
 import { NavMain } from "@/components/chats/nav-main";
 import { NavUser } from "../admin/nav-user";
-import { NavProjects } from "@/components/chats/nav-projects";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/shadcn-ui/sidebar";
-
-const data = {
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        { title: "History", url: "#" },
-        { title: "Starred", url: "#" },
-        { title: "Settings", url: "#" },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        { title: "Genesis", url: "#" },
-        { title: "Explorer", url: "#" },
-        { title: "Quantum", url: "#" },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        { title: "Introduction", url: "#" },
-        { title: "Get Started", url: "#" },
-        { title: "Tutorials", url: "#" },
-        { title: "Changelog", url: "#" },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        { title: "General", url: "#" },
-        { title: "Team", url: "#" },
-        { title: "Billing", url: "#" },
-        { title: "Limits", url: "#" },
-      ],
-    },
-  ],
-  projects: [
-    { name: "Design Engineering", url: "#", icon: Frame },
-    { name: "Sales & Marketing", url: "#", icon: PieChart },
-    { name: "Travel", url: "#", icon: Map },
-  ],
-};
+import Link from "next/link";
 
 export function AppSidebar({
   user,
@@ -80,11 +21,49 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & {
   user: { name: string; email: string; avatar: string };
 }) {
+  const [chatItems, setChatItems] = React.useState<
+    { title: string; url: string }[]
+  >([]);
+
+  // ✅ Fetch all chats from /api/chat
+  React.useEffect(() => {
+    async function fetchChats() {
+      try {
+        const res = await fetch("/api/chat");
+        if (!res.ok) throw new Error("Failed to fetch chats");
+        const data = await res.json();
+        // Expecting array of chats with `id` and `title`
+        const formatted = (data || []).map((chat: any) => ({
+          title: chat.title || "Untitled Chat",
+          url: `/chats/${chat.id}`,
+        }));
+        setChatItems(formatted);
+      } catch (err) {
+        console.error("Error fetching chats:", err);
+      }
+    }
+    fetchChats();
+  }, []);
+
+  const navData = {
+    navMain: [
+      {
+        title: "Chats",
+        url: "#",
+        icon: SquareTerminal,
+        isActive: true,
+        items: chatItems.length
+          ? chatItems
+          : [{ title: "Loading...", url: "#" }],
+      },
+    ],
+  };
+
   return (
     <Sidebar collapsible="icon" {...props} className="group/sidebar">
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={navData.navMain} />
+       
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

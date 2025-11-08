@@ -6,6 +6,7 @@ import { createChatSchema } from "@/lib/validation";
 import { encrypt } from "@/lib/crypto";
 import { testDatabaseConnection } from "@/lib/db-test";
 import z from "zod";
+import { eq } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   try {
@@ -55,6 +56,27 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { error: "Internal server error" },
+      { status: 500 },
+    );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getSession();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const chats = await db
+      .select({ title: chat.title, id: chat.id })
+      .from(chat)
+      .where(eq(chat.userId, session?.user?.id));
+
+    return NextResponse.json(chats);
+  } catch (err) {
+    console.error("Error fetching messages:", err);
+    return NextResponse.json(
+      { error: "Failed to fetch messages" },
       { status: 500 },
     );
   }

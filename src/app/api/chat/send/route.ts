@@ -3,12 +3,12 @@ import { db } from "@/db/drizzle";
 import { chat, message } from "@/db/schema";
 import { generateText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { getSchema } from "@/lib/get-schema";
 import { decrypt } from "@/lib/crypto";
-import { tokenCalc } from "@/lib/token-calc";
 import { ExecuteQuery } from "@/lib/exec-query";
 import * as XLSX from "xlsx";
+import { getSession } from "@/lib/get-session";
 
 // 🗂️ Type definitions for Excel data
 type ExcelData = {
@@ -21,12 +21,16 @@ type ExcelData = {
 
 type QueryResult = {
   success: boolean;
-  answers?: any; 
+  answers?: any;
   error?: string;
 };
 
 export async function POST(req: Request) {
   try {
+    const session = await getSession();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const { chatId, userId, content } = await req.json();
 
     const result = await db
@@ -152,7 +156,7 @@ export async function POST(req: Request) {
       chatId,
       content: text,
       sqlResult: extractedQuery ?? null,
-      excelData: excelData ? JSON.stringify(excelData) : null, // Store as JSON string
+      excelData: excelData ? JSON.stringify(excelData) : null, 
       senderId: "1",
     });
 
@@ -160,7 +164,7 @@ export async function POST(req: Request) {
       success: true,
       text,
       queryResult,
-      excelData, // Return the structured Excel data
+      excelData, 
       extractedQuery,
     });
   } catch (err) {
